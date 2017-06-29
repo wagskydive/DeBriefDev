@@ -1,0 +1,327 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+
+<PlayerButton@Button>:
+    font_name: '/usr/share/fonts/webdings.otf'
+    font_size: 40
+    padding_y: 20
+
+<ThumbButton@Button>:
+    ## height: self.height
+    ## width: self.height
+    size: self.size
+    size_hint: .25,.25
+    
+    padding_x: 3
+    Image:
+        source: 'testthumb.THM'
+        pos: self.parent.pos
+        size: self.parent.size
+        
+<CustomDropDown>:
+    DropDown:
+        id: dropdownmenu
+        Button:
+            text: 'button 1'
+        Button:
+            text: 'button 2'
+        Button:
+            text: 'button 3'
+        
+
+
+
+<DeBiefPlayer>:
+    on_active_screen: root.changescreen()
+
+#    ismediapresent: MediaPresent
+#    on_ismediapresent: print ('medialist variable is: '+str(medialist))
+#    on_ismediapresent: _screen_manager.current = "filechooserscreen"
+##        _screen_manager.transition.direction = 'down'
+##        
+##        root.InsertMediaButton_Press()
+
+    #name: "Player"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        spacing: 5
+
+        
+        BoxLayout:
+            
+            BoxLayout:
+                size_hint: .2,1
+                orientation: "vertical"
+                spacing: 5
+                Button:
+                    id: QuitButton
+                    text: "Quit now"
+                    on_release: root.QuitNowButton_Press()
+                Button:
+                    id: SaveClipButton 
+                    size_hint: 1,2
+                    text: "Save Clip"
+                    on_release: root.SaveClipButton_Press()
+                Button:
+                    id: SetIn
+                    text: "set IN"
+                    on_press: root.SetInButton_Press()
+                Button:
+                    id: SetOut
+                    text: "set OUT"
+                    on_press: root.SetOutButton_Press()
+
+
+
+##### - MIDDLE BROWSER MAIN - ######
+
+            ScreenManager:
+                
+                id: _screen_manager
+                
+                Screen:
+                    
+                        
+                    id: 'firstscreen'
+                    name: 'insertmediascreen'
+                    #on_active_screen: root.changescreen()
+                        
+                    Button:                        
+                        text: "Insert Media TEST"
+                        #on_release: _screen_manager.transition.direction = 'down'
+                        #on_release: _screen_manager.current = "filechooserscreen"
+                        on_release: root.InsertMediaButton_Press()
+
+                Screen:
+                    id: 'secondscreen'
+                    name: 'filechooserscreen'
+                    #on_active_screen: root.changescreen()
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 5
+
+                        BoxLayout:
+                            size_hint: 1, 0.1
+                            Button:
+                                id: filterbuttonlistview
+                                text: 'list view'
+                                on_press: filechoosermain.view_mode = 'list'
+                            Button:
+                                id: filterbuttoniconview
+                                text: 'icon view'
+                                on_press: filechoosermain.view_mode = 'icon'
+                            Button:
+                                id: checkDCIM
+                                text: 'Check DCIM Folder'
+                                #on_release: root.changedir()
+                                
+                                
+##                            Button:
+##                                id: changedir
+##                                text: "saves directory"
+##                                on_press: root.changedir()
+
+                            
+
+
+                        FileChooser:
+                            
+                            id: filechoosermain
+                            path: root.newestfile
+                            #selection: root.newestfile
+                            filters: ['*.MP4', '*.mp4', '*.MTS', '*.avi', '*.mov', '*.MOV']
+                            # on_selection: root.dropdownmenu()
+
+                           # on_selection: root.get_newest_file()
+                            on_selection: root.FileSelected_press()
+
+
+                            
+                            FileChooserIconLayout
+                            FileChooserListLayout
+
+                
+                            
+##### - BUTTONS ON THE RIGHT - ######
+
+
+                    
+            BoxLayout:
+                size_hint: .2,1
+                orientation: "vertical"
+                spacing: 5
+                Button:
+                    id: Eject
+                    size_hint: 1, .15
+                    text: "Eject Media"
+                    on_press: root.EjectButton_Press()
+                    on_release: _screen_manager.transition.direction = 'up'
+                    on_release: _screen_manager.current = "insertmediascreen"
+
+                Button:
+                    id: SaveStillButton
+                    text: "save Still = quit now"
+##                    on_release: app.stop()
+                    on_press: root.SaveStillButton_Press()
+                Button:
+                    id: MakeDayTape
+                    text: 'Make day tape'
+                    on_release: root.MakeDayTapeButton_Press()
+##                Button:
+##                    id: BrowseMediaButton
+##                    text: "Browse Media"
+##                    on_press: root.BrowseMediaButton_Press()
+##                    on_release: _screen_manager.transition.direction = 'left'
+##                    on_release: _screen_manager.current = "filechooserscreen"
+                Button:
+                    #size_hint: 0.2, 1
+                    text: 'Rotate view 180'
+                    on_release: root.RotateViewFile_press()
+
+
+##### - BOTTOM SIDE - ######            
+
+
+
+        BoxLayout:
+            size_hint: 1,.3
+            orientation: "vertical"
+            spacing: 10
+
+            BoxLayout:
+                size_hint: 1, .4
+                Label:
+                    size_hint: .15,1
+                    text: str(Progressbar.value)
+                Slider:
+                    id: Progressbar
+                    min: 0
+                    max: 30
+                    step: 1
+                    #on_touch_move: root.Progressbar_Move()
+                    on_touch_up: root.Progressbar_Up()
+                    # value: root.global omx; omx.position()
+
+##                    canvas:
+##                        Color:
+##                            rgba: 1,0,0,.2
+##                        Rectangle:
+##                            pos: self.pos
+##                            size: self.size
+##                            ##height: self.height
+##                            #width: .5
+##                            #Color: [1, .3, .5, ]
+##                        Line:
+##                            
+##                            rectangle: 0, 0, 200, 200
+##                            width: 8
+                        
+                    
+                    ## background_width: 20
+                    ## value_track: True
+                    ## value_track_color: [1, .2, .2, 1]
+                Label:
+                    size_hint: .15,1
+                    text: str(Progressbar.max)
+                    
+            GridLayout:
+                
+                width: self.width
+
+                rows: 1
+                spacing: 5
+                
+##                PlayerButton:
+##                    id: PlayPrevFileButton
+##                    text: "32"
+##                    on_press: root.PlayPrevFileButton_Press()
+                
+                PlayerButton:
+                    id: SeekBackFastButton
+                    text: "333"
+                    on_press: root.SeekBackFastButton_Press()
+                PlayerButton:
+                    id: SeekBackMediumButton
+                    text: "33"
+                    on_press: root.SeekBackMediumButton_Press()                    
+                PlayerButton:
+                    id: SeekBackSlowButton
+                    text: "3"
+                    on_press: root.SeekBackSlowButton_Press()
+                PlayerButton:
+                    id: PlayPauseButton
+                    text: ";4"
+                    on_press: root.PlayPauseButton_Press()
+                PlayerButton:
+                    id: SeekForwSlowButton
+                    text: "4"
+                    on_press: root.SeekForwSlowButton_Press()
+                PlayerButton:
+                    id: SeekForwMediumButton
+                    text: "44"
+                    on_press: root.SeekForwMediumButton_Press()
+
+                PlayerButton:
+                    id: SeekForwFastButton
+                    text: "444"
+                    on_press: root.SeekForwFastButton_Press()
+                    
+##                PlayerButton:
+##                    id: PlayNextFileButton
+##                    text: "24"
+##                    on_press: root.PlayNextFileButton_Press()
+
+
+
+<FileBrowserScreen>:
+    name: 'FileBrowser'
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            Button:
+                size_hint: .2,1
+                text: '<'
+                on_release: app.root.transition.direction = 'right'
+                on_release: app.root.current = "Player"
+
+                    
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+
+
+                BoxLayout:
+                    size_hint: 1, 0.1
+                    Button:
+                        id: filterbuttonlistview
+                        text: 'list view'
+                        on_press: filechoosersecond.view_mode = 'list'
+                    Button:
+                        id: filterbuttoniconview
+                        text: 'icon view'
+                        on_press: filechoosersecond.view_mode = 'icon'
+                
+
+                FileChooser:
+                    
+                    id: filechoosersecond
+                    path: '/media/pi/8765-4321/DCIM/105GOPRO/'
+                    filters: ['*.MP4', '*.mp4', '*.MTS', '*.avi']
+                    #on_submit: PlayerScreen().FileSelected_press()
+                    on_submit: app.root.current = "Player"
+
+
+                    
+                    FileChooserIconLayout
+                    FileChooserListLayout
+
+        Button:
+            size_hint: 1,.2
+            text: 'V'
+            on_release: app.root.transition.direction = 'up'
+            on_release: app.root.current = "Insert"
+
+            
