@@ -2,7 +2,7 @@
 
 
 <PlayerButton@Button>:
-    font_name: '/usr/share/fonts/webdings.otf'
+  #  font_name: '/usr/share/fonts/webdings.otf'
     font_size: 40
     padding_y: 20
 
@@ -241,32 +241,43 @@
                 
                 PlayerButton:
                     id: SeekBackFastButton
-                    text: "333"
+                    text: "<<<"
                     on_press: root.SeekBackFastButton_Press()
                 PlayerButton:
                     id: SeekBackMediumButton
-                    text: "33"
+                    text: "<<"
                     on_press: root.SeekBackMediumButton_Press()                    
                 PlayerButton:
                     id: SeekBackSlowButton
-                    text: "3"
+                    text: "<"
                     on_press: root.SeekBackSlowButton_Press()
-                PlayerButton:
-                    id: PlayPauseButton
-                    text: ";4"
-                    on_press: root.PlayPauseButton_Press()
+                BoxLayout:
+                    orientation: "vertical"
+                    PlayerButton:
+                        id: PlayFasterButton
+                        text: "Faster"
+                        on_press: root.PlayFasterButton_Press()                     
+                    PlayerButton:
+                        id: PlayPauseButton
+                        text: "PLAY"
+                        on_press: root.PlayPauseButton_Press()
+                    PlayerButton:
+                        id: PlaySlowerButton
+                        text: "Slower"
+                        on_press: root.PlaySlowerButton_Press()
+                       
                 PlayerButton:
                     id: SeekForwSlowButton
-                    text: "4"
+                    text: "Step >"
                     on_press: root.SeekForwSlowButton_Press()
                 PlayerButton:
                     id: SeekForwMediumButton
-                    text: "44"
+                    text: ">>"
                     on_press: root.SeekForwMediumButton_Press()
 
                 PlayerButton:
                     id: SeekForwFastButton
-                    text: "444"
+                    text: ">>>"
                     on_press: root.SeekForwFastButton_Press()
                     
 ##                PlayerButton:
