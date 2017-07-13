@@ -414,12 +414,12 @@ class DeBiefPlayer(BoxLayout):
   def PlaySlowerButton_Press(self):
     print ('Play Slower Button Pressed')
     if omxisplaying == True:
-      omx.play_pause()
+      omx.action(1)
   
   def PlayFasterButton_Press(self):
     print ('Play Faster Button Pressed')
     if omxisplaying == True:
-      omx.play_pause()
+      omx.action(2)
   
   def PlayPauseButton_Press(self):
     print ('Play Pause Button Pressed')
