@@ -57,6 +57,7 @@
                 spacing: 5
                 Button:
                     id: QuitButton
+                    size_hint: 1,.6
                     text: "Quit now"
                     on_release: root.QuitNowButton_Press()
                 Button:
@@ -154,7 +155,7 @@
                 spacing: 5
                 Button:
                     id: Eject
-                    size_hint: 1, .15
+                    size_hint: 1, 1.5
                     text: "Eject Media"
                     on_press: root.EjectButton_Press()
                     on_release: _screen_manager.transition.direction = 'up'
