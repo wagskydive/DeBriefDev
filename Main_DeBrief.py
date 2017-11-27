@@ -99,7 +99,7 @@ class InsertMedia():
       print (medialist, MediaPresent)
       #return False
       time.sleep(.5)
-      
+     
     while medialist > 0:
       medialist = len(os.listdir('/media/usb0'))
       global MediaPresent; MediaPresent = True
